@@ -108,10 +108,10 @@ def add_staff_save(request):
             user = CustomUser.objects.create_user(username=username, password=password, email=email, first_name=first_name, last_name=last_name, user_type=2)
             user.staffs.address = address
             user.save()
-            messages.success(request, "Staff Added Successfully!")
+            messages.success(request, "Doctor Added Successfully!")
             return redirect('add_staff')
         except:
-            messages.error(request, "Failed to Add Staff!")
+            messages.error(request, "Failed to Add Doctor!")
             return redirect('add_staff')
 
 
@@ -159,11 +159,11 @@ def edit_staff_save(request):
             staff_model.address = address
             staff_model.save()
 
-            messages.success(request, "Staff Updated Successfully.")
+            messages.success(request, "Doctor Updated Successfully.")
             return redirect('/edit_staff/'+staff_id)
 
         except:
-            messages.error(request, "Failed to Update Staff.")
+            messages.error(request, "Failed to Update Doctor.")
             return redirect('/edit_staff/'+staff_id)
 
 
@@ -197,7 +197,7 @@ def add_course_save(request):
             messages.success(request, "Course Added Successfully!")
             return redirect('add_course')
         except:
-            messages.error(request, "Failed to Add Course!")
+            messages.error(request, "Failed to Add Department!")
             return redirect('add_course')
 
 
@@ -373,10 +373,10 @@ def add_student_save(request):
                 user.students.gender = gender
                 user.students.profile_pic = profile_pic_url
                 user.save()
-                messages.success(request, "Student Added Successfully!")
+                messages.success(request, "Patient Added Successfully!")
                 return redirect('add_student')
             except:
-                messages.error(request, "Failed to Add Student!")
+                messages.error(request, "Failed to Add Patient!")
                 return redirect('add_student')
         else:
             return redirect('add_student')
@@ -483,7 +483,7 @@ def delete_student(request, student_id):
     student = Students.objects.get(admin=student_id)
     try:
         student.delete()
-        messages.success(request, "Student Deleted Successfully.")
+        messages.success(request, "Patient Deleted Successfully.")
         return redirect('manage_student')
     except:
         messages.error(request, "Failed to Delete Student.")
@@ -520,7 +520,7 @@ def add_subject_save(request):
             messages.success(request, "Subject Added Successfully!")
             return redirect('add_subject')
         except:
-            messages.error(request, "Failed to Add Subject!")
+            messages.error(request, "Failed to Add Specialization !")
             return redirect('add_subject')
 
 

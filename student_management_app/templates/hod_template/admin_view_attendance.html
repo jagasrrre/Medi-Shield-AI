@@ -1,7 +1,7 @@
 {% extends 'hod_template/base_template.html' %}
 
 {% block page_title %}
-    View Attendance
+    View Record
 {% endblock page_title %}
 
 {% block main_content %}
@@ -16,7 +16,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">View Attendance</h3>
+                        <h3 class="card-title">View Records</h3>
                     </div>
                     <!-- /.card-header -->
 
@@ -49,7 +49,7 @@
                         <div class="card-body">
                            
                             <div class="form-group">
-                                <label>Subject </label>
+                                <label>Department </label>
                                 <select class="form-control" name="subject" id="subject">
                                     {% for subject in subjects %}
                                         <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Session Year </label>
+                                <label> Consultation </label>
                                 <select class="form-control" name="session_year_id" id="session_year_id">
                                     {% for session_year in session_years %}
                                         <option value="{{ session_year.id }}">{{ session_year.session_start_year }} to {{ session_year.session_end_year }}</option>
@@ -95,7 +95,7 @@
 
                             <div class="card-footer" id="fetch_student_block" style="display:none;">
 
-                                <button type="button" class="btn btn-primary" id="fetch_student">Fetch Student Data</button>
+                                <button type="button" class="btn btn-primary" id="fetch_student">Fetch Patient Data</button>
                             </div>
                             
                             <!-- /.card-body -->
