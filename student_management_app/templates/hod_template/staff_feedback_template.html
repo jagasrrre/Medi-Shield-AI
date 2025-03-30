@@ -1,7 +1,7 @@
 {% extends 'hod_template/base_template.html' %}
 
 {% block page_title %}
-    Staff Feedback
+    Doctor Message
 {% endblock page_title %}
 
 {% block main_content %}
@@ -16,7 +16,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Staff Feedback</h3>
+                            <h3 class="card-title">Doctor Message</h3>
                         </div>
                         <!-- /.card-header -->
 
@@ -25,8 +25,8 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Staff ID</th>
-                                    <th>Staff Name</th>
+                                    <th>Doctor ID</th>
+                                    <th>Doctor Name</th>
                                     <th>Message</th>
                                     <th>Sended On</th>
                                     <th>Reply</th>
@@ -65,13 +65,13 @@
         </div><!-- /.container-fluid -->
       </section>
 
-      {% comment %} Modal to Reply Feedback {% endcomment %}
+      {% comment %} Modal to Reply Message {% endcomment %}
       <!-- Modal -->
         <div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Reply Feedback</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Reply Message</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
