@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 import json
+from datetime import datetime
 
 from student_management_app.models import CustomUser, Staffs, Courses, Subjects, Students, SessionYearModel, FeedBackStudent, FeedBackStaffs, LeaveReportStudent, LeaveReportStaff, Attendance, AttendanceReport
 from .forms import AddStudentForm, EditStudentForm
@@ -262,21 +263,21 @@ def add_session(request):
 
 
 def add_session_save(request):
-    if request.method != "POST":
-        messages.error(request, "Invalid Method")
-        return redirect('add_course')
-    else:
-        session_start_year = request.POST.get('session_start_year')
-        session_end_year = request.POST.get('session_end_year')
+    if request.method == "POST":
+        session_start_year = request.POST.get("session_start_year")
+        session_end_year = request.POST.get("session_end_year")
 
         try:
-            sessionyear = SessionYearModel(session_start_year=session_start_year, session_end_year=session_end_year)
-            sessionyear.save()
-            messages.success(request, "Session Year added Successfully!")
-            return redirect("add_session")
-        except:
-            messages.error(request, "Failed to Add Session Year")
-            return redirect("add_session")
+            session_start_year = datetime.strptime(session_start_year, "%Y-%m-%dT%H:%M")
+            session_end_year = datetime.strptime(session_end_year, "%Y-%m-%dT%H:%M")
+
+            session = SessionYearModel(session_start_year=session_start_year, session_end_year=session_end_year)
+            session.save()
+            messages.success(request, "Consultation added successfully!")
+        except Exception as e:
+            messages.error(request, f"Error: {str(e)}")
+
+        return redirect("add_session")
 
 
 def edit_session(request, session_id):

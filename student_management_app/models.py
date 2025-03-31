@@ -7,8 +7,8 @@ from django.dispatch import receiver
 
 class SessionYearModel(models.Model):
     id = models.AutoField(primary_key=True)
-    session_start_year = models.DateField()
-    session_end_year = models.DateField()
+    session_start_year =models.DateTimeField()
+    session_end_year = models.DateTimeField()
     objects = models.Manager()
 
 
