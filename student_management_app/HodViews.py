@@ -12,6 +12,7 @@ from student_management_app.models import CustomUser, Staffs, Courses, Subjects,
 from .forms import AddStudentForm, EditStudentForm
 
 
+
 def admin_home(request):
     all_student_count = Students.objects.all().count()
     subject_count = Subjects.objects.all().count()

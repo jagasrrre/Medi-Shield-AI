@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'student_management_app',
+    'anomaly_detection',
 ]
 
 MIDDLEWARE = [

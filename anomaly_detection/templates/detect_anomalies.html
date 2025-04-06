@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anomaly Detection</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        /* Form container styling */
+        #upload-form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        /* Button styling */
+        button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        /* Table styling */
+        #result-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            margin-top: 20px;
+        }
+        #result-table th, #result-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        #result-table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        #result-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        #result-table tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <h2>Upload Hospital Security Logs</h2>
+    <form id="upload-form" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <input type="file" id="log-file" name="log_file" required>
+        <button type="submit">Detect Anomalies</button>
+    </form>
+
+    <h3>Results:</h3>
+    <table id="result-table">
+        <thead>
+            <tr><th>Index</th><th>Status</th></tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+    document.getElementById("upload-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    fetch("{% url 'anomaly_detect' %}", {
+    method: "POST",
+    headers: {
+        'X-CSRFToken': csrfToken
+    },
+    body: formData,
+    credentials: 'same-origin'
+})
+.then(response => {
+    const contentType = response.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+        throw new Error(`Expected JSON, but received ${contentType}`);
+    }
+    return response.json();
+})
+.then(data => {
+    const tableBody = document.querySelector("#result-table tbody");
+    tableBody.innerHTML = "";
+    data.data.forEach((row, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${index}</td><td>${row.Anomaly}</td>`;
+        tableBody.appendChild(tr);
+    });
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert(`An error occurred: ${error.message}`);
+});
+});
+
+    </script>
+</body>
+</html>
