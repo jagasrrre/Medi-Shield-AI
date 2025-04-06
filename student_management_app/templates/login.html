@@ -1,51 +1,76 @@
+<style>
+#password-strength-bar {
+  transition: width 0.3s, background-color 0.3s;
+  width: 0%;
+  background-color: #ff4444;  /* Default red */
+}
+
+.password-requirements {
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+.password-requirement {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.password-requirement .icon {
+  margin-right: 8px;
+  color: #ccc;
+}
+.password-requirement.valid .icon {
+  color: 
+}
+</style>
+
+
 {% extends 'base.html' %}
-{% load static %} 
+{% load static %}
 
 {% block content %}
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="{% url 'login' %}"><b>Hospital </b>Security System</a>
+    </div>
 
-    <body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="{% url 'login' %}"><b>Hospital </b>Security System</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to Hospital Security System</p>
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Sign in to Hospital Security System</p>
 
-      <form action="{% url 'doLogin' %}" method="POST">
-      {% csrf_token %}
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+        <form action="{% url 'doLogin' %}" method="POST">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Email" name="email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password" oninput="checkPasswordStrength(this.value)">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
             </div>
           </div>
-        </div>
+
+          <!-- Password strength bar -->
+          <div id="password-strength-bar" style="height: 5px; margin-bottom: 5px;"></div>
+          <small id="password-strength-feedback" class="form-text text-muted mb-2"></small>
 
           <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
 
-          {% comment %} <div class="col-12 text-center">
-            <a href="{% url 'password_reset' %}">Reset Password</a>
-          </div>  {% endcomment %}
-
-          {% comment %} Display Messages {% endcomment %}
           {% if messages %}
           <div class="col-12">
             {% for message in messages %}
               {% if message.tags == "error" %}
-                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
                   {{ message }}
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -55,14 +80,37 @@
             {% endfor %}
           </div>
           {% endif %}
-
-          <!-- /.col -->
-        </div>
-      </form>
-
-
+        </form>
+      </div>
+    </div>
   </div>
-</div>
-<!-- /.login-box -->
 
+  <!-- Include zxcvbn library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+  <script>
+    function checkPasswordStrength(password) {
+      const result = zxcvbn(password);
+      const bar = document.getElementById('password-strength-bar');
+      const feedback = document.getElementById('password-strength-feedback');
+
+      // Update strength bar width and color
+      bar.style.width = ((result.score + 1) * 20) + '%';
+      bar.style.backgroundColor =
+        result.score < 2 ? '#ff4444' :
+        result.score < 4 ? '#ffbb33' : '#00C851';
+
+      // Generate feedback
+      feedback.textContent =
+        result.score === 0 ? "Very weak" :
+        result.score === 1 ? "Weak" :
+        result.score === 2 ? "Moderate" :
+        result.score === 3 ? "Strong" : "Very strong";
+
+      // Add warning if crack time is low
+      if (result.score < 3) {
+        feedback.textContent += ` (${result.feedback.warning || 'easily guessable'})`;
+      }
+    }
+  </script>
+</body>
 {% endblock %}

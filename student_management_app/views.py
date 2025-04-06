@@ -3,9 +3,26 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
+
 
 from student_management_app.EmailBackEnd import EmailBackEnd
 
+class CustomPasswordValidator:
+    def validate(self, password, user=None):
+        # Require at least 1 uppercase, 1 lowercase, 1 digit, 1 special char
+        if not any(c.isupper() for c in password):
+            raise ValidationError(_("Password must contain at least 1 uppercase letter."))
+        if not any(c.islower() for c in password):
+            raise ValidationError(_("Password must contain at least 1 lowercase letter."))
+        if not any(c.isdigit() for c in password):
+            raise ValidationError(_("Password must contain at least 1 digit."))
+        if not any(c in '!@#$%^&*()_+' for c in password):
+            raise ValidationError(_("Password must contain at least 1 special character (!@#$%^&*)."))
+
+def get_help_text(self):
+        return _("Your password must contain 1 uppercase, 1 lowercase, 1 digit, and 1 special character.")
 
 def anomaly_detect(request):
     return render(request, 'detect_anomalies.html')
