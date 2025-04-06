@@ -7,6 +7,9 @@ from django.contrib import messages
 from student_management_app.EmailBackEnd import EmailBackEnd
 
 
+def anomaly_detect(request):
+    return render(request, 'detect_anomalies.html')
+
 def home(request):
     return render(request, 'index.html')
 

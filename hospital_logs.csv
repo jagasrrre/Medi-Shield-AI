@@ -1,0 +1,5 @@
+timestamp,user_id,activity,status
+2024-03-30 10:15:00,1001,login,success
+2024-03-30 10:17:00,1002,access_file,failed
+2024-03-30 10:20:00,1003,logout,success
+2024-03-30 10:25:00,1001,modify_records,success
