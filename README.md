@@ -1,32 +1,35 @@
-# CYBER CHRONICLE
-This is a Simple Student Management System Developed for Educational Purpose using Python (Django).
-and installment of cyber activities as below
+# 🛡️ MediShield AI
 
+**MediShield AI** is a Smart Health Record Management System developed using **Python (Django)**.  
+It is built for educational purposes to demonstrate how digital healthcare record management can be implemented with secure access and role-based dashboards.
 
-### A. Admin Users Can
-1. See Overall Summary Charts of Stuudents Performance, Staffs Perfomrances, Courses, Subjects, Leave, etc.
-2. Manage Staffs (Add, Update and Delete)
-3. Manage Students (Add, Update and Delete)
-4. Manage Course (Add, Update and Delete)
-5. Manage Subjects (Add, Update and Delete)
-6. Manage Sessions (Add, Update and Delete)
-7. View Student Attendance
-8. Review and Reply Student/Staff Feedback
-9. Review (Approve/Reject) Student/Staff Leave
+---
 
-### B. Staff/Teachers Can
-1. See the Overall Summary Charts related to their students, their subjects, leave status, etc.
-2. Take/Update Students Attendance
-3. Add/Update Result
-4. Apply for Leave
-5. Send Feedback to HOD
+## 📋 Features
 
-### C. Students Can
-1. See the Overall Summary Charts related to their attendance, their subjects, leave status, etc.
-2. View Attendance
-3. View Result
-4. Apply for Leave
-5. Send Feedback to HOD
+### 👨‍💼 A. Admin Users Can:
+- View dashboard charts of doctors, patients, appointments, and feedback
+- Manage Doctors (Add, Update, Delete)
+- Manage Patients (Add, Update, Delete)
+- Manage Specializations and Departments
+- Manage Appointments (Approve / Reject)
+- Respond to feedback from doctors and patients
+- Generate reports and statistics
+
+### 👨‍⚕️ B. Doctors Can:
+- View dashboard showing their appointments and patients
+- View and update patient medical records
+- Add prescriptions and treatment notes
+- Approve or cancel appointments
+- Apply for leave
+- Send feedback to the Admin
+
+### 👤 C. Patients Can:
+- View dashboard with appointment details, prescriptions, and records
+- Book appointments with doctors
+- View medical history and prescription details
+- Apply for leave (e.g., hospital stay)
+- Send feedback to the Admin
 
 ## How to Install and Run this project?
 
@@ -77,12 +80,12 @@ $  source venv/bin/activate
 
 **3. Clone this project**
 ```
-$  git clone https://github.com/vijaythapa333/django-student-management-system.git
+$  git clone https://github.com/jagasrrre/Medi-Shield-AI.git
 ```
 
 Then, Enter the project
 ```
-$  cd django-student-management-system
+$  cd medi-shield-Ai
 ```
 
 **4. Install Requirements from 'requirements.txt'**
@@ -122,16 +125,16 @@ Then Add Email, Username and Password
 
 **or Use Default Credentials**
 
-*For HOD /SuperAdmin*
+*For Administrator
 Email: admin@gmail.com
 Password: admin
 
-*For Staff*
+*For Staff/Doctor*
 Email: staff@gmail.com
 Password: staff
 
-*For Student*
-Email: student@gmail.com
-Password: student
+*For patients*
+Email: patient@gmail.com
+Password: patient
 
 
